@@ -165,7 +165,7 @@ sysctl -p
 install_zsh()
 {
     #install vim, git, zsh, buyobu
-    apt-get install vim git byobu zsh  openssl zsh-theme-powerlevel9k powerline fonts-powerline -y
+    apt-get install vim git byobu zsh dialog openssl zsh-theme-powerlevel9k powerline fonts-powerline -y
     update-alternatives --set editor /usr/bin/vim.basic
     fgrep -q '/etc/profile.d' /etc/zsh/zprofile || tee -a /etc/zsh/zprofile  << ____HERE
 if [ -d /etc/profile.d ]; then
@@ -573,4 +573,10 @@ ____HERE
     sed -i '/declare DDnsClient/,/^ *}$/{H;$!d} ; x ;  s/bool Disabled false/bool Disabled true/' /opt/vpnserver/vpn_server.config
     sleep 1
     sudo systemctl start vpnserver
+}
+
+dist_upgrade()
+{
+    apt-get update
+    apt-get install -y linux-image-generic-hwe-18.04-edge linux-headers-generic-hwe-18.04-edge linux-tools-generic-hwe-18.04-edge 
 }
